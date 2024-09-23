@@ -27,7 +27,6 @@ Il permet de proteger l'acces direct et de controller la modification de ces don
 public class Banque {
     public String compte;
     private int solde;
-
     public void demarrer(){
         System.out.println("On y va");
     }
