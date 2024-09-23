@@ -23,5 +23,12 @@ public class App {
         Vache va = new Vache();
 
         va.chanter();
+
+        Nombre n = new Nombre();
+
+        Bonjour bo = new Bonjour();
+
+        n.start();
+        bo.start();
     }
 }
