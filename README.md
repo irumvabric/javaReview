@@ -38,7 +38,7 @@ public class Banque {
 
 
 
-# heritage
+### heritage
 
 C'est un concept fundamental qui permet a un classe d'heriter des attributs et des methodes d'une classe appele classe de base ou super class.
 
@@ -50,7 +50,7 @@ Pour utilizer la methode de la superclass on utilise le mot cle super;
 
 Example
 
-# Redefinition de methode 
+### Redefinition de methode 
 
 Elle se produit lorsque une sous classe fournie fournie implementation specifique deja define dans la super class;
 
@@ -59,20 +59,20 @@ Cela permet de modifier le comportement d'une methode.
 NB: ces deux methodes doivent avoir la meme signature cad : le nom, le type de retour et les parametres;
 
 
-# Surcharge d'une methode 
+### Surcharge d'une methode 
 
 Elle se produit lorsque plusieurs methodes dans la meme nom mais avec des signatures differentes
 
 Elle permet de creer plusieurs variants de methodes avec des comportements different en fonctions des arguments en parameter.
 
 
-# Classe absraite 
+### Classe absraite 
 
 C'une classe qui ne peut pas etre instancie directement
 
 Elle est utilizer comme base d'autre classe
 
-# Interface
+### Interface
 
 Elle est utilise pour definer des comportements communs:
 
@@ -80,7 +80,7 @@ Elle fourni uniquement la signature des methodes
 
 Une classe qui implemente une interface doit definer toutes les methodes de cette interface
 
-# Gestion d'exception
+### Gestion d'exception
 
 C'est un mecanisme qui permet de gerer les erreurs et les situations inatendues qui peuvent subvenir lors de l'excecution d'un programme
 
@@ -91,7 +91,7 @@ Erreur Verifier : c'est une exception que qui ne necessite pas une gestion expli
 
 
 
-# Thread
+### Thread
 
 Ils permettent d'executer plusieurs taches simultanement dans un programme
 
