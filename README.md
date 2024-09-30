@@ -111,9 +111,89 @@ Java fournie des methodes tells que start , join, sleep,interrupt.
 
 
 
+# Architecture Client / Serveur
+
+## 1.introduction
+
+## 2.Definition
+
+L'architecturr client serveur est un modele ou le client se connecet au processus du seveur pour fournir un information
+
+Le client est generalement un interface utilisateur qui envoi des requetes 
+
+Tandisque le serveur fourni une reponse
+
+## 3.Types 
+
+On distingue :
+
+### Client leger
+
+Le traitement des donnees se fait principalement sur le serveur 
+
+### Client lourd
+
+Le client gere un pars importante du traitement des donnes reduisant ainsi la charge du serveur
+
+### Architecture 3-tiers
+
+On la separation a trois couche a savoir::
+-	Presentation qui represente le client;
+- Logique d'application qui represente un serveur intermediare
+- Base de données
 
 
+### Architecture Multi-tiers
+
+: C'est une extention de l'architecture en 3 tiers ajoutant la repartition des charges et la modularite
+
+Le client envoi une requetee via un reseau
+
+> Le serveur recoit la requete traite les information,interroge la base de donnée et génere un réponse , le serveur envoi le resultat au client qui les affiches a l'utilisateur
+
+> Le seveur peu traiter une ou plusieurs connrctions simultanées
 
 
+## 4.Fonctionnement
 
 
+## 5.Objectifs
+
+Les principaux objectifs sont: 
+
+### scalabilité 
+Il s'agit d'une possibité d'ajouter des clients ou les serveurs sans avoir un impact significatif sur le fonctionnement
+
+### Répartition de charge
+
+IL s'agit d'equilibrer le travail entre plusieurs serveurs pour ameliorer la performance
+
+### Sécurité
+
+IL s'agit de centraliser les données pour mieux controlé les données
+
+## 6.Modélisation
+
+Elle peut etre realiser par des diagrammes UML:
+
+### Diagramme de cas d'utilisation
+
+Il agit de definir les interactions entre clients et serveurs
+
+### Diagramme de frequences
+
+Il s'agit d'illustrer l'ordre des messages echanger entre le client et le serveur
+
+### Diagramme des composants
+
+Il s'agit de visualiser les differentes parti de la structure et leurs relations
+
+## 7.Technologies
+
+Elles sont diverse et adapte pour la mise en place d'une architecture d'un client et serveur :
+
+- Protocole
+- Language de programmation
+- Base de données 
+- Outils de development
+- Outils de test
