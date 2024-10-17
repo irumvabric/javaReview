@@ -1,23 +1,3 @@
-## Getting Started
-
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
-
-## Folder Structure
-
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
-
-
 ## Same notes of the Course 
 
 C'est un concept qui permet de regrouper les données et les méthodes qui manipule ces données au sein d'une meme unite.
@@ -197,3 +177,251 @@ Elles sont diverse et adapte pour la mise en place d'une architecture d'un clien
 - Base de données 
 - Outils de development
 - Outils de test
+
+# Chap 3 : Les sockets
+
+## 1.Definition
+
+ce sont des interfaces qui permette aux programmes de communiquer entre eux
+
+Il s'agit d un ppoint de connnection permettant l'echange des donnees entre euX
+
+Il existe deux types:
+
+### - Sochet de flux (Stream socket)
+Il utilise le protocol `TCP` pour assurer une communication fiable et ordonner 
+
+### - Socket de Datagramme(Datagram socket) 
+
+Il utilise le protocol `UDP` qui est moins fiable mais qui offre des performances plus rapide
+
+NB: Les sockets permettent aux applications de s'envoyer des info entre les addresses IP pour etablir des connnections necessaires
+
+## 2.Fonctionnement des sockets
+
+Le fonctionnement repose sur plusieurs etapes qui permettent l'etablissement et la gestion d'une connnection entre 2 applications
+
+### °1 Creation du socket 
+
+L'application cree des sockets en utilisant des fonctions fournies par le systeme d'exploitation ou fourni par les packages JAVA
+
+### °2 Liaison (Binding)
+
+Pour les sockets au serveur la liaison associe le socket a une addresse IP a une apport de port precis cela permet d'etablir une connection
+
+### °3 Ecoute (Listen)
+
+Dans le cas de socket de flux le serveur passe en mode ecoute pour attendre les demandes de connections
+
+Cela indique que le serveur est pres aaccepter les connections des clients.
+
+### °4 Acceptation des connections
+
+Lorsque un client se connecte le serveur accepte la connection en utilisant des fonctions precises 
+
+Cela permet de creer un nouveau socket pour gerer la communication avec les clients: permettant ainsi au serveur a ecouter les autres connections
+
+ ### °4 Communication
+
+Une fois la connection etablie les donnes peuvent etre echanger entre le client et le serveur en utilisant des fonctions de lecture et d'ecriture.
+
+## 3.Programmation Java
+
+### °1. Gestion des addresses IP
+
+`InetAddress`
+
+ex: `InetAddress a = InetAddress.getLocalhost();`
+
+        `try {  
+            InetAddress a = InetAddress.getLocalHost();
+            System.out.println("L'address Ip  est : "+a.getHostAddress());
+        } catch (UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            InetAddress b = InetAddress.getByName("localhost");
+            System.out.println("L'address Ip  est : "+b.getHostAddress());
+        } catch (UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
+
+        Enumeration<NetworkInterface> nt = null;
+        try {
+            nt = NetworkInterface.getNetworkInterfaces();
+        } catch (SocketException e) {
+            throw new RuntimeException(e);
+        }
+
+        while (nt.hasMoreElements()){
+            NetworkInterface k = nt.nextElement();
+            System.out.println("Le nom de la carte est : "+k.getName());
+            System.out.println("Le description de la carte est : "+k.getName());
+
+        }`
+
+### °2. Creation de socket TCP
+
+Main du Serveur
+
+    `
+        package org.example;
+
+
+
+    public class Main {
+    public static void main(String[] args) {
+        server s1 = new server();
+
+        s1.receiveinfo();
+
+        System.out.println("The end of the listening");
+    }
+    }
+    `
+Class du Serveur
+
+    `
+    package org.example;
+
+    import javax.net.ssl.SSLServerSocket;
+    import java.io.BufferedReader;
+    import java.io.IOException;
+    import java.io.InputStreamReader;
+    import java.io.PrintWriter;
+    import java.net.ServerSocket;
+    import java.net.Socket;
+    
+    public class server {
+
+    public void receiveinfo() {
+        int port = 12345;
+
+        ServerSocket sv;
+
+        {
+            try {
+                sv = new ServerSocket(port);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        Socket sk;
+
+        {
+            try {
+                sk = sv.accept();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        PrintWriter out;
+
+        {
+            try {
+                out = new PrintWriter(sk.getOutputStream(), true);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        BufferedReader in;
+
+        {
+            try {
+                in = new BufferedReader(new InputStreamReader(
+                        sk.getInputStream()
+                ));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        String rps;
+
+        {
+            try {
+                rps = in.readLine();
+                System.out.println("Message du client :" + rps);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+    }
+    `
+
+Main du Client
+
+    `
+    package org.example;
+
+    import java.net.InetAddress;
+    import java.net.NetworkInterface;
+    import java.net.SocketException;
+    import java.net.UnknownHostException;
+    import java.util.Enumeration;
+    
+    import org.example.client;
+    
+    public class Main {
+        public static void main(String[] args) {
+            client cl1 = new client();
+
+        cl1.sendInfo();
+    }
+    }
+    `
+
+Class du Client
+
+
+        `package org.example;
+
+    import java.io.*;
+    import java.net.Socket;
+    
+    public class client {
+
+    public void sendInfo(){
+        String addr = "localhost";
+        int port = 12345;
+
+        Socket st;
+
+        {
+            try {
+                st = new Socket(addr,port);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+
+        PrintWriter out;
+
+        {
+            try {
+                out = new PrintWriter(st.getOutputStream(),true);
+
+                BufferedReader in;
+
+                in = new BufferedReader(new InputStreamReader(
+                        st.getInputStream()
+                ));
+
+                out.println("Bonjour mon serveur");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+
+
+    }
+    `
+
