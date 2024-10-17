@@ -425,3 +425,92 @@ Class du Client
     }
     `
 
+
+Classe Server datagram
+
+    `
+    package org.example;
+
+    import java.io.IOException;
+    import java.net.DatagramPacket;
+    import java.net.DatagramSocket;
+    import java.net.SocketException;
+    
+    public class server {
+
+
+    public void receiveinfo(){
+        int port = 9786;
+        DatagramSocket ds;
+
+        {
+            try {
+                ds = new DatagramSocket(port);
+            } catch (SocketException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        byte[] buffer = new  byte[1024];
+
+        DatagramPacket rc = new DatagramPacket(buffer,buffer.length);
+
+        {
+            try {
+                ds.receive(rc);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        String msg = new String(rc.getData(),0,rc.getLength());
+
+        System.out.println(msg);
+
+    }
+    }
+
+    `
+Classe Client datagram
+
+    `
+
+    package org.example;
+
+    import java.io.IOException;
+    import java.net.*;
+    
+    public class client {
+
+    public void sendMessage(){
+    String msg = "Serveur iri bon";
+    int port = 9786;
+
+    DatagramSocket ds;
+
+    {
+        try {
+            ds = new DatagramSocket();
+
+            InetAddress a = InetAddress.getByName("localhost");
+
+
+        DatagramPacket dp = new DatagramPacket(msg.getBytes(),msg.length(),a,port);
+
+            try {
+                ds.send(dp);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        } catch (SocketException e) {
+            throw new RuntimeException(e);
+        } catch (UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    }
+    }
+
+    
+    `
