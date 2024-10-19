@@ -514,3 +514,49 @@ Classe Client datagram
 
     
     `
+
+# CHAP 5 : RMI( Remote Moethod invocation) 
+
+## 1. Introduction
+
+Il permet a un programme d'invoquer des objets situes a une autre machine facilitant ainsi la creation d'application distribue
+C'est un mecanisme qui fonctionne a travers le reseau en rendant possible  l'acces distant comme s'il etaient en local
+
+## 2. objctifs
+### Transparence
+
+Permettre au developpeur d'appeler des methodes distantes de la meme maniere que les methodes locale
+
+### Distribution
+
+Supporter la creation d'application reparti sur plusieurs machines
+
+### Distribution
+
+Rendre la communication entre les applications distant aussi simple que possible aux developpeurs
+
+Elle se compose de plusieurs elements cles:
+
+- Client : une application qui invoque un application distant
+- Serveur : une application qui fournie une objet distant
+- Registry : Un service qui permet au client de localiser les objets distant
+- Protocol RMI : Il permet d'assurer la communication entre le client et le serveur
+
+Foctionnement
+
+
+les etapes sont: 
+
+Creation des interfaces
+Definir une interface qui herite
+
+- Implementaion de l'interface :
+
+ Creer une classe qui implemente cet interface et qui herite de 
+
+    `UnicastRemoteObject`
+
+Enregistremeent de l'objet distant
+L'Objet doit enregistrer dans le registre pour qu'il soi accessible par le client 
+- Invocation de la methode distante
+Le client cherche l'objet dans le registre  et invoque la methode comme si il s'agissait d'une methode locale
